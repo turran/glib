@@ -2389,7 +2389,6 @@ subdir('gobject')
 subdir('gthread')
 subdir('gmodule')
 subdir('gio')
-subdir('fuzzing')
 subdir('tools')
 
 # xgettext is optional (on Windows for instance)
