@@ -185,7 +185,6 @@ glib_sub_headers = files(
   'grcbox.h',
   'grefcount.h',
   'grefstring.h',
-  'gregex.h',
   'gscanner.h',
   'gsequence.h',
   'gshell.h',
@@ -273,7 +272,6 @@ glib_sources = files(
   'grcbox.c',
   'grefcount.c',
   'grefstring.c',
-  'gregex.c',
   'gscanner.c',
   'gsequence.c',
   'gshell.c',
@@ -362,13 +360,7 @@ else
   glib_dtrace_hdr = []
 endif
 
-pcre2_static_args = []
-
-if use_pcre2_static_flag
-  pcre2_static_args = ['-DPCRE2_STATIC']
-endif
-
-glib_c_args = ['-DG_LOG_DOMAIN="GLib"', '-DGLIB_COMPILATION'] + pcre2_static_args + glib_hidden_visibility_args
+glib_c_args = ['-DG_LOG_DOMAIN="GLib"', '-DGLIB_COMPILATION'] + glib_hidden_visibility_args
 libglib = library('glib-2.0',
   glib_dtrace_obj, glib_dtrace_hdr,
   sources : [deprecated_sources, glib_sources],
@@ -380,7 +372,7 @@ libglib = library('glib-2.0',
   link_args : [noseh_link_args, glib_link_flags, win32_ldflags],
   include_directories : configinc,
   link_with: [charset_lib, gnulib_lib],
-  dependencies : [pcre2, thread_dep, librt] + libintl_deps + libiconv + platform_deps + [gnulib_libm_dependency, libm] + [libsysprof_capture_dep],
+  dependencies : [thread_dep, librt] + libintl_deps + libiconv + platform_deps + [gnulib_libm_dependency, libm] + [libsysprof_capture_dep],
   c_args : glib_c_args,
   objc_args : glib_c_args,
 )
